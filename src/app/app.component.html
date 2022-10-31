@@ -1,87 +1,72 @@
 <h2>User Form</h2>
 
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="half">
+<form [formGroup]="myForm" class="half" (ngSubmit)="onSubmit()">
   <!-- #f="ngForm" -->
-  <div class="form-group " >
+  <div class="form-group ">
 
     <div class="d-flex justify-content-between">
       <div><label for="name">ID</label></div>
-      <div style="width:50% ;"><input type="number"
-             id="id"
-             class="form-control"
-             placeholder="ID"
-             name="id"
-             formControlName="id"
-             required>
-            </div>
-        </div>
- <br>
-    <div class="d-flex justify-content-between">
-    <div><label for="name">Name</label></div>
-    <div style="width:50% ;"><input type="text"
-           id="metadataName"
-           class="form-control"
-           placeholder="Name"
-           name="metadataName"
-           formControlName="metadataName"
-           required>
-          </div>
+      <div style="width:50% ;"><input type="number" id="id" class="form-control" placeholder="ID" name="id"
+          formControlName="id" required>
       </div>
-      <br>
+    </div>
+    <br>
+    <div class="d-flex justify-content-between">
+      <div><label for="name">Name</label></div>
+      <div style="width:50% ;"><input type="text" id="name" class="form-control" placeholder="Name" name="name"
+          formControlName="name" required>
+      </div>
+    </div>
+    <br>
 
-      <div class="d-flex justify-content-between">
-        <div><label for="name">Version</label></div>
-        <div style="width:50% ;"><input type="number"
-               id="version"
-               class="form-control"
-               placeholder="version"
-               name="version"
-               formControlName="version"
-               required>
-              </div>
-          </div>
-          <br>
-      <div class="d-flex justify-content-between">
-        <div><label for="name">IName</label></div>
-        <div style="width:50% ;"><input type="text"
-               id="ipackname"
-               class="form-control"
-               placeholder="IpackName"
-               name="ipackname"
-               formControlName="ipackname"
-               required>
-              </div>
-          </div>
+    <div class="d-flex justify-content-between">
+      <div><label for="name">Version</label></div>
+      <div style="width:50% ;"><input type="number" id="version" class="form-control" placeholder="version"
+          name="version" formControlName="version" required>
+      </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-between">
+      <div><label for="name">IName</label></div>
+      <div style="width:50% ;"><input type="text" id="ipackname" class="form-control" placeholder="IpackName"
+          name="iPackName" formControlName="iPackName" required>
+      </div>
+    </div>
 
   </div>
-  <button style="margin-top:5px; margin-bottom:5px" type="button" class="btn btn-primary btn-sm text-center" (click)="addNewSection()">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Section
-  </button>
-  
+  <div class="d-flex justify-content-between">
+    <div> Sections</div>
+    <button style="margin-top:5px; margin-bottom:5px" type="button" class="btn btn-primary btn-sm text-center"
+      (click)="addNewSection()">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Section
+    </button>
+  </div>
+
   <div formArrayName="sections">
-    <div style="margin-top:5px; margin-bottom:5px;" *ngFor="let section of getControls(); let sectionIndex=index">
+    <div style="margin-top:5px; margin-bottom:5px;" *ngFor="let section of getSectionControls(); let sectionIndex=index">
       <!-- myForm.get('cities')['controls'] -->
       <fieldset>
-        <legend><h4>Section {{sectionIndex+1}}:<button style="float: right;" type="button" class="btn btn-danger" (click)="deleteSection(sectionIndex)">
-<span class="glyphicon glyphicon-minus"aria-hidden="true"></span> Remove Section
-</button>
-</h4></legend>
+        <legend>
+          <h4>Section {{sectionIndex+1}}:<button style="float: right;" type="button" class="btn btn-danger"
+              (click)="deleteSection(sectionIndex)">
+              <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove Section
+            </button>
+          </h4>
+        </legend>
+
         <div [formGroupName]="sectionIndex">
+        <!-- <div [formGroupName]="section.overview"> -->
+
+          <h4>Overview : </h4>
           <div class="form-inline">
             <div class="form-group">
               <label style="margin-right:80px;" class="col-form-label" for="name">Name</label>
-              <input type="text"
-                     class="form-control"
-                     id="name"
-                     placeholder="Name"
-                     name="name"
-                     formControlName="name" 
-                     style="margin-right:5px;" 
-                     required>
-              <!-- <button style="margin-right:5px;"  type="button" class="btn btn-success btn-sm" (click)="addNewAddressLine(getAddress().controls)">
+              <input type="text" class="form-control" id="sectionName" placeholder="Name" name="sectionName"
+                formControlName="sectionName" style="margin-right:5px;" required>
+              <!-- <button style="margin-right:5px;"  type="button" class="btn btn-success btn-sm" (click)="addNewAddressLine(myForm.controls.addressLines.controls.addressLine.controls)">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Address Line
               </button> -->
-              
+
 
             </div>
           </div>
@@ -89,41 +74,118 @@
           <div class="form-inline">
             <div class="form-group">
               <label style="margin-right:80px;" class="col-form-label" for="title">Title</label>
-              <input type="text"
-                     class="form-control"
-                     id="title"
-                     placeholder="Title"
-                     name="title"
-                     formControlName="title" 
-                     style="margin-right:5px;" 
-                     required>
-              <!-- <button style="margin-right:5px;"  type="button" class="btn btn-success btn-sm" (click)="addNewAddressLine(getAddress().controls)">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Address Line
-              </button> -->
-              
+              <input type="text" class="form-control" id="title" placeholder="Title" name="title"
+                formControlName="title" style="margin-right:5px;" required>
+
+
 
             </div>
           </div>
 
           <div class="form-inline">
             <div class="form-group">
-              <label style="margin-right:80px;" class="col-form-label" for="step">Step</label>
-              <input type="text"
-                     class="form-control"
-                     id="step"
-                     placeholder="Step"
-                     name="step"
-                     formControlName="step" 
-                     style="margin-right:5px;" 
-                     required>
-              <!-- <button style="margin-right:5px;"  type="button" class="btn btn-success btn-sm" (click)="addNewAddressLine(getAddress().controls)">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Address Line
-              </button> -->
-              
+              <label style="margin-right:80px;" class="col-form-label" for="step">Description</label>
+              <input type="text" class="form-control" id="desc" placeholder="Description" name="desc"
+                formControlName="desc" style="margin-right:5px;" required>
+
+
 
             </div>
           </div>
-          <!-- <div class="form-inline">
+
+          <div class="form-group">
+
+            <div class="d-flex justify-content-between">
+              <label>Content :</label>
+              <input type="text" id="content" class="form-control half" required formControlName="content"
+                name="content" />
+            </div>
+
+            <br>
+
+            <div class="d-flex justify-content-between">
+
+              <h5>Headers </h5>
+              <button style="margin-top:5px; margin-bottom:5px" type="button" class="btn btn-primary btn-sm text-center"
+                (click)="addHeader(sectionIndex)">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Header
+              </button>
+            </div>
+            <div formArrayName="headers">
+              <div style="margin-top:5px; margin-bottom:5px;"
+                *ngFor="let header of headers(sectionIndex).controls; let headerIndex=index">
+                <!-- myForm.get('cities')['controls'] -->
+                <fieldset>
+                  <legend>
+                    <h4>Header {{headerIndex+1}}:<button style="float: right;" type="button" class="btn btn-danger"
+                        (click)="removeHeader(sectionIndex,headerIndex)">
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove Section
+                      </button>
+                    </h4>
+                  </legend>
+                  <div [formGroupName]="headerIndex">
+                    <div class="form-inline">
+                      <div class="form-group">
+                        <label style="margin-right:80px;" class="col-form-label" for="templateName">TemplateName</label>
+                        <input type="text" class="form-control" id="templateName" placeholder="Name" name="templateName"
+                          formControlName="templateName" style="margin-right:5px;" required>
+                        <!-- <button style="margin-right:5px;"  type="button" class="btn btn-success btn-sm" (click)="addNewAddressLine(myForm.controls.addressLines.controls.addressLine.controls)">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Address Line
+                          </button> -->
+
+
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-inline">
+                      <div class="form-group">
+                        <label style="margin-right:80px;" class="col-form-label" for="headerString">Title</label>
+                        <input type="text" class="form-control" id="headerString" placeholder="Title"
+                          name="headerString" formControlName="headerString" style="margin-right:5px;" required>
+
+
+
+                      </div>
+                    </div>
+
+
+                    <!-- <div class="form-inline">
+                        <div class="form-group">
+                          <div formArrayName="addressLines">
+                            <div style="margin-top:5px; margin-bottom:5px;" *ngFor="let lines of getAddress(); let j=index">
+                              <div [formGroupName]="j">
+                                <div class="form-group">
+                                <label style="margin-right:5px;"  class="col-form-label" for="emailId">Address Line {{j + 1}}</label>
+                                <input formControlName="addressLine"
+                                       class="form-control"
+                                       style="margin-right:5px;" 
+                                       type="email"
+                                       placeholder="Address lines"
+                                       id="address"
+                                       name="address"
+                                        />
+                              <button style="margin-right:5px;" type="button" class="btn btn-danger btn-sm" (click)="deleteAddressLine(myForm.controls.sections.controls.addressLines, j)">
+            <span class="glyphicon glyphicon-minus"aria-hidden="true">Remove Address Line</span>
+            </button> 
+            
+            
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+
+          <!-- </div> -->
+
+        </div>
+
+      </div>
+        <!-- <div class="form-inline">
             <div class="form-group">
               <div formArrayName="addressLines">
                 <div style="margin-top:5px; margin-bottom:5px;" *ngFor="let lines of getAddress(); let j=index">
@@ -138,9 +200,9 @@
                            id="address"
                            name="address"
                             />
-                 <button style="margin-right:5px;" type="button" class="btn btn-danger btn-sm" (click)="deleteAddressLine(city.controls.addressLines, j)">
+                  <button style="margin-right:5px;" type="button" class="btn btn-danger btn-sm" (click)="deleteAddressLine(myForm.controls.sections.controls.addressLines, j)">
 <span class="glyphicon glyphicon-minus"aria-hidden="true">Remove Address Line</span>
-</button>
+</button> 
 
 
                     </div>
@@ -149,16 +211,14 @@
               </div>
             </div>
           </div> -->
-        </div>
+        <!-- </div> -->
       </fieldset>
     </div>
   </div>
 
   <div style="margin-top:30px ;"></div>
   <button type="submit" class="btn btn-success">Submit</button>
-  <button type="button" class="btn btn-basic" >Cancel</button>
+  <button type="button" class="btn btn-basic">Cancel</button>
 </form>
 
- <pre>{{myForm.value | json}}</pre>
-
-
+<pre>{{myForm.value | json}}</pre>
